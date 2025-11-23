@@ -7,6 +7,8 @@ You're prompted to provide a Youtube URL(only 1 url at the time)
 After hitting enter the program will simply download and then place the output file as a .mp4 in your regular downloads folder.
 It will try to download at the highest quality available for that video, so take caution as long 4k videos can get big. I will add a quality setting soon.
 
+Check out all the supported [websites](supportedsites.md)
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 Built using PyInstaller.
 To build the source code, make sure to include the icon.ico, ffmpeg, ffprobe and yt-dlp exe's. 
