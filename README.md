@@ -1,6 +1,7 @@
 A simple, no fuss, no tech-savvy command line youtube video downloader using YT-DLP at it's core for Windows.
 -------------------------------------------------------------------------------------------------------------
 ![icon](icon.ico)
+
 Built using PyInstaller.
 To build the source code, make sure to include the icon.ico, ffmpeg, ffprobe and yt-dlp exe's. 
 
