@@ -1,5 +1,7 @@
-A simple, no fuss python-based youtube video downloader using YT-DLP at it's core for Windows.
+A simple, no fuss, no tech-savvy python-based youtube video downloader using YT-DLP at it's core for Windows.
+
 Built using pyinstaller.
+-------------------------------------------------------------------------------------------------------------
 
 To build the source code, make sure to include the icon.ico, ffmpeg, ffprobe and yt-dlp exe's. 
 
