@@ -1,6 +1,6 @@
 # Supported sites
 
-Below is a list of all extractors that are currently included with yt-dlp.
+Below is a list of all extractors that are currently included with yt-dlp(which is what EZYT_DLP uses)
 If a site is not listed here, it might still be supported by yt-dlp's embed extraction or generic extractor.
 Not all sites listed here are guaranteed to work; websites are constantly changing and sometimes this breaks yt-dlp's support for them.
 The only reliable way to check if a site is supported is to try it.
