@@ -2,6 +2,7 @@ import subprocess
 import os
 import shutil
 from pathlib import Path
+from typing import Any
 import sys
 import re
 import urllib.request
@@ -9,7 +10,7 @@ import urllib.request
 
 def get_exe_folder():
     if getattr(sys, 'frozen', False):
-        return Path(sys._MEIPASS)
+        return Path(getattr(sys, "_MEIPASS", Path(__file__).parent))  # type: ignore
     else:
         return Path(__file__).parent
 
