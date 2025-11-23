@@ -1,4 +1,4 @@
-# A simple, no fuss, no tech-savvy command line youtube video downloader using YT-DLP at it's core for Windows.
+# A simple, no fuss, no tech-savvy command line youtube video downloader using YT-DLP at it's core.
 
 -------------------------------------------------------------------------------------------------------------
 ![icon](icon.ico)
