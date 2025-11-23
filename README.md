@@ -27,4 +27,4 @@ To build the source code, make sure to include the icon.ico, ffmpeg, ffprobe and
 
 Simple one line to build:
 
-``` pyinstaller --onefile --console --icon "myicon.ico" --add-binary "yt-dlp.exe;." --add-binary "ffmpeg.exe;." --add-binary "ffprobe.exe;." download.py ```
+``` pyinstaller --onefile --console --icon "icon.ico" --add-binary "yt-dlp.exe;." --add-binary "ffmpeg.exe;." --add-binary "ffprobe.exe;." download.py ```
