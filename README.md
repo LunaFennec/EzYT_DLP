@@ -7,7 +7,7 @@ You're prompted to provide a video URL(only 1 url at the time)
 After hitting enter the program will simply download and then place the output file as a .mp4 in your regular downloads folder.
 It will try to download at the highest quality available for that video, so take caution as long 4k videos can get big. I will add a quality setting soon.
 
-Check out all the supported [websites](supportedsites.md).
+Check out all the supported [websites](supportedsites.md) you can download from.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
