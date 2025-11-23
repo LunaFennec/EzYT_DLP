@@ -23,7 +23,7 @@ Check out all the [supported websites](supportedsites.md) you can download from.
 
 Started off as a personal project to make downloading youtube videos easier. decided to publish it to github for others to use.
 
-To build the source code, make sure to include the icon.ico, ffmpeg, ffprobe and yt-dlp exe's. 
+To build the source code, make sure to include ffmpeg, ffprobe and yt-dlp exe's as binaries. The icon is optional.
 
 Simple one line to build:
 
