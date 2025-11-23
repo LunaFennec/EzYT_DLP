@@ -5,11 +5,16 @@ A simple, no fuss, no tech-savvy command line youtube video downloader using YT-
 Usage:
 
 Download the latest release. Place the .exe wherever you like, and run it. 
-Provide a video URL(only 1 url at the time).
+
+Provide a video URL.
+> Only one URL at a time is supported.
+
 Hit enter.
+
 Downloading will start and be placed in your regular downloads folder.
 
-The files will be output as .mp4 with the highest available quality. Take note, long high quality videos will take a long time to download and use up a lot of disk space!
+The files will be output as .mp4 with the highest available quality.
+> Take note, long high quality videos will take a long time to download and use up a lot of disk space!
 
 Check out all the [supported websites](supportedsites.md) you can download from.
 
