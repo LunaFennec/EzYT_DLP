@@ -11,7 +11,7 @@ Downloading will start and be placed in your regular downloads folder.
 
 The files will be output as .mp4 with the highest available quality. Take note, long high quality videos will take a long time to download and use up a lot of disk space!
 
-Check out all the supported [websites](supportedsites.md) you can download from.
+Check out all the [supported websites](supportedsites.md) you can download from.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
