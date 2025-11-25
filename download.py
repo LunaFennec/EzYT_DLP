@@ -7,7 +7,6 @@ import re
 from typing import cast
 
 def get_exe_folder():
-    # Safe access to _MEIPASS for PyInstaller single-file; fallback to script folder when running normally
     if getattr(sys, 'frozen', False):
         return Path(getattr(sys, "_MEIPASS", Path(__file__).parent))
     else:
@@ -122,25 +121,33 @@ def main():
     print("\nDownloading...\n")
 
     try:
-        result = subprocess.run(
+        process = subprocess.Popen(
             ytdlp_args,
             cwd=exe_folder,
-            text=True,
-            capture_output=True
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True
         )
+
+        if process.stdout is not None:
+            for line in iter(process.stdout.readline, ''):
+                print(line, end='')
+        else:
+            print("Error: cannot capture yt-dlp output (stdout is None)")
+
+        process.wait()
+        return_code = process.returncode
+
     except Exception as e:
         print("yt-dlp failed to run.")
         print("Error:", e)
         input("\nPress Enter to exit...")
         return
 
-    if result.returncode != 0:
-        print("yt-dlp reported an error:\n")
-        print(result.stderr)
+    if return_code != 0:
+        print("\nyt-dlp reported an error!")
         input("\nPress Enter to exit...")
         return
-
-    print(result.stdout)
 
     print("\nMoving file(s) to Downloads...\n")
 
