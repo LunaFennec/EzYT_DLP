@@ -7,6 +7,7 @@ import re
 import urllib.request
 
 def get_exe_folder():
+    # Safe access to _MEIPASS for PyInstaller single-file; fallback to script folder when running normally
     if getattr(sys, 'frozen', False):
         return Path(getattr(sys, "_MEIPASS", Path(__file__).parent))
     else:
@@ -22,23 +23,17 @@ def is_valid_url(url: str) -> bool:
     )
     return re.match(url_regex, url) is not None
 
-try:
-    result = subprocess.run(
-        ["yt-dlp", "--get-title", url],
-        capture_ooutput=True,
-        text=True,
-        timeout=10
-    )
-
-    if result.returncode != 0:
-        print("URL invalid or unreachable.")
-        return
-    
-    print("URL validated.",  result.stdout.strip())
-
-except subprocess.TimeoutExpired:
-    print("URL validation timed out.")
-        
+def check_url_exists(ytdlp_path: Path, url: str, timeout_sec: int = 12) -> bool:
+    try:
+        cmd = [str(ytdlp_path), "--get-title", url]
+        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=timeout_sec)
+        return proc.returncode == 0
+    except subprocess.TimeoutExpired:
+        return False
+    except FileNotFoundError:
+        return False
+    except Exception:
+        return False
 
 def choose_quality():
     while True:
@@ -56,7 +51,7 @@ def choose_quality():
     if choice in {"1","2","3","4","5"}:
         return choice
     
-    print("Invalid choice. PPlease choose 1-5.")
+    print("Invalid choice. Please choose 1-5.\n")
 
 def choose_mode():
     prompt = (
@@ -70,7 +65,7 @@ def choose_mode():
     if choice in {"1", "2"}:
         return choice
     
-    print("Invalid choice. Press 1-2.")
+    print("Invalid choice. Press 1-2.\n")
 
 def build_video_format(choice: str) -> str:
     mapping = {
@@ -98,14 +93,7 @@ def main():
         print("Make sure it begins with http:// or https:// and is supported.")
         input("\nPress Enter to exit...")
         return
-
-    print("Checking URL…")
-    if not check_url_exists(url):
-        print("Cannot reach this URL.")
-        print("It may be offline, blocked, or otherwise invalid.")
-        input("\nPress Enter to exit...")
-        return
-
+    
     exe_folder = get_exe_folder()
 
     ytdlp_path = exe_folder / "yt-dlp.exe"
@@ -120,11 +108,11 @@ def main():
         print("yt-dlp.exe not found in the folder with this program. How did you manage this???")
         input("\nPress Enter to exit...")
         return
-
     quality_choice = choose_quality()
     mode_choice = choose_mode()
 
     if mode_choice == "1":
+        # Video (mp4)
         fmt = build_video_format(quality_choice)
         ytdlp_args = [str(ytdlp_path), "-f", fmt, url]
         mode_text = f"Video (format: {fmt})"
@@ -133,7 +121,7 @@ def main():
         mode_text = "Audio only (m4a)"
 
     print(f"\nSelected: quality {quality_choice}, {mode_text}")
-    print("\nDownloading…\n")
+    print("\nDownloading...\n")
 
     try:
         result = subprocess.run(
@@ -156,7 +144,7 @@ def main():
 
     print(result.stdout)
 
-    print("\nMoving file(s) to Downloads…\n")
+    print("\nMoving file(s) to Downloads...\n")
 
     allowed_ext = {
         ".mp4", ".m4a", ".webm", ".mp3",
@@ -204,4 +192,3 @@ def main():
     input("Press Enter to exit...")
 if __name__ == "__main__":
     main()
-
