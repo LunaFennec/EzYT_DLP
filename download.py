@@ -7,7 +7,6 @@ import re
 import urllib.request
 
 def get_exe_folder():
-    # Safe access to _MEIPASS for PyInstaller single-file; fallback to script folder when running normally
     if getattr(sys, 'frozen', False):
         return Path(getattr(sys, "_MEIPASS", Path(__file__).parent))
     else:
@@ -25,9 +24,17 @@ def is_valid_url(url: str) -> bool:
 
 def check_url_exists(url: str) -> bool:
     try:
-        req = urllib.request.Request(url, method="HEAD")
-        with urllib.request.urlopen(req, timeout=6):
-            return True
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": "Mozilla/5.0"
+            }
+        )
+
+        with urllib.request.urlopen(req, timeout=4) as response:
+
+            return response.status < 400
+        
     except:
         return False
 
@@ -112,19 +119,14 @@ def main():
         input("\nPress Enter to exit...")
         return
 
-    # Ask quality and mode
     quality_choice = choose_quality()
     mode_choice = choose_mode()
 
-    # Build yt-dlp args depending on mode
     if mode_choice == "1":
-        # Video (mp4)
         fmt = build_video_format(quality_choice)
         ytdlp_args = [str(ytdlp_path), "-f", fmt, url]
         mode_text = f"Video (format: {fmt})"
     else:
-        # Audio only -> extract to m4a using ffmpeg
-        # Using -x will re-encode only if necessary; audio-quality 0 = best
         ytdlp_args = [str(ytdlp_path), "-x", "--audio-format", "m4a", "--audio-quality", "0", url]
         mode_text = "Audio only (m4a)"
 
@@ -150,12 +152,10 @@ def main():
         input("\nPress Enter to exit...")
         return
 
-    # Print yt-dlp stdout (download summary)
     print(result.stdout)
 
     print("\nMoving file(s) to Downloads…\n")
 
-    # Allowed yt-dlp output file extensions (include expected audio/video containers)
     allowed_ext = {
         ".mp4", ".m4a", ".webm", ".mp3",
         ".info.json", ".description",
@@ -166,20 +166,17 @@ def main():
     moved_any = False
 
     for f in exe_folder.glob("*"):
-        # Skip internal runtime files (PyInstaller temp files & executables)
         if f.name.lower().startswith(("yt-dlp", "ffmpeg", "ffprobe")):
             continue
         if f.suffix == ".exe":
             continue
 
-        # Only move expected yt-dlp output files
         if f.suffix.lower() not in allowed_ext:
             continue
 
         if f.is_file():
             try:
                 dest = downloads_folder / f.name
-                # If file exists, avoid overwriting — add suffix
                 if dest.exists():
                     base = dest.stem
                     ext = dest.suffix
