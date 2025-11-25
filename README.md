@@ -5,17 +5,19 @@
 
 ### Usage:
 
-* Download the latest release. Place the .exe wherever you like, and run it. 
+* Download the latest release. Place the .exe wherever you like, and run it.
 
 * Provide a video URL.
   > Only one URL at a time is supported.
 
-* Hit enter.
+* Choose quality by typing number 1-5.
+
+* Choose filetype with number 1-2.
 
 * Downloading will start and be placed in your regular downloads folder.
 
-* The files will be output as .mp4 with the highest available quality.
-  > Take note, long high quality videos will take a long time to download and use up a lot of disk space!
+* The files will be output in the type and quality you selected.
+  > If the quality is not available, the closest quality available will be chosen instead.
 
 Check out all the [supported websites](supportedsites.md) you can download from.
 
