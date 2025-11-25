@@ -1,16 +1,30 @@
-A simple, no fuss, no tech-savvy command line youtube video downloader using YT-DLP at it's core for Windows.
+# A simple, no fuss, no tech-savvy command line youtube video downloader using YT-DLP at it's core.
+
 -------------------------------------------------------------------------------------------------------------
 ![icon](icon.ico)
 
-To use, simply download the latest release. Place the .exe wherever you like, and run it. 
-You're prompted to provide a Youtube URL(only 1 url at the time)
-After hitting enter the program will simply download and then place the output file as a .mp4 in your regular downloads folder.
-It will try to download at the highest quality available for that video, so take caution as long 4k videos can get big. I will add a quality setting soon.
+### Usage:
 
-Check out all the supported [websites](supportedsites.md)
+* Download the latest release. Place the .exe wherever you like, and run it. 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------
-Built using PyInstaller.
-To build the source code, make sure to include the icon.ico, ffmpeg, ffprobe and yt-dlp exe's. 
+* Provide a video URL.
+  > Only one URL at a time is supported.
 
-Simple one line to build: pyinstaller --onefile --console --icon "myicon.ico" --add-binary "yt-dlp.exe;." --add-binary "ffmpeg.exe;." --add-binary "ffprobe.exe;." main.py
+* Hit enter.
+
+* Downloading will start and be placed in your regular downloads folder.
+
+* The files will be output as .mp4 with the highest available quality.
+  > Take note, long high quality videos will take a long time to download and use up a lot of disk space!
+
+Check out all the [supported websites](supportedsites.md) you can download from.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Started off as a personal project to make downloading youtube videos easier. decided to publish it to github for others to use.
+
+To build the source code, make sure to include ffmpeg, ffprobe and yt-dlp exe's as binaries. The icon is optional.
+
+Simple one line to build:
+
+``` pyinstaller --onefile --console --icon "icon.ico" --add-binary "yt-dlp.exe;." --add-binary "ffmpeg.exe;." --add-binary "ffprobe.exe;." download.py ```
