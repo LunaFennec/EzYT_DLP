@@ -4,7 +4,7 @@ import shutil
 from pathlib import Path
 import sys
 import re
-import urllib.request
+from typing import cast
 
 def get_exe_folder():
     # Safe access to _MEIPASS for PyInstaller single-file; fallback to script folder when running normally
@@ -45,27 +45,26 @@ def choose_quality():
             " 4) 1080p\n"
             " 5) Max available (best)\n"
             "Choice: "
-    )
-    choice = input(prompt).strip()
+            )
+        choice = input(prompt).strip()
+        if choice in {"1","2","3","4","5"}:
+            return choice
 
-    if choice in {"1","2","3","4","5"}:
-        return choice
-    
-    print("Invalid choice. Please choose 1-5.\n")
+        print("Invalid choice. Please choose 1-5.\n")
 
 def choose_mode():
-    prompt = (
-        "Download mode:\n"
-        " 1) Video (mp4)\n"
-        " 2) Audio only (m4a)\n"
-        "Choice: "
-    )
-    choice = input(prompt).strip()
-
-    if choice in {"1", "2"}:
-        return choice
-    
-    print("Invalid choice. Press 1-2.\n")
+    while True:
+        prompt = (
+            "Download mode:\n"
+            " 1) Video (mp4)\n"
+            " 2) Audio only (m4a)\n"
+            "Choice: "
+        )
+        choice = input(prompt).strip()
+        if choice in {"1", "2"}:
+            return choice
+        
+        print("Invalid choice. Press 1-2.\n")
 
 def build_video_format(choice: str) -> str:
     mapping = {
@@ -100,7 +99,7 @@ def main():
     ffmpeg_path = exe_folder / "ffmpeg.exe"
     ffprobe_path = exe_folder / "ffprobe.exe"
 
-    os.environ["PATH"] = str(exe_folder) + os.pathsep + os.environ.get("PATH", "")
+    os.environ["PATH"] = str(exe_folder) + os.pathsep + cast(str, os.environ.get("PATH") or "")
 
     downloads_folder = Path.home() / "Downloads"
 
@@ -112,7 +111,6 @@ def main():
     mode_choice = choose_mode()
 
     if mode_choice == "1":
-        # Video (mp4)
         fmt = build_video_format(quality_choice)
         ytdlp_args = [str(ytdlp_path), "-f", fmt, url]
         mode_text = f"Video (format: {fmt})"
