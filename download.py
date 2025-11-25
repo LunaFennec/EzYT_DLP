@@ -22,21 +22,23 @@ def is_valid_url(url: str) -> bool:
     )
     return re.match(url_regex, url) is not None
 
-def check_url_exists(url: str) -> bool:
-    try:
-        req = urllib.request.Request(
-            url,
-            headers={
-                "User-Agent": "Mozilla/5.0"
-            }
-        )
+try:
+    result = subprocess.run(
+        ["yt-dlp", "--get-title", url],
+        capture_ooutput=True,
+        text=True,
+        timeout=10
+    )
 
-        with urllib.request.urlopen(req, timeout=4) as response:
+    if result.returncode != 0:
+        print("URL invalid or unreachable.")
+        return
+    
+    print("URL validated.",  result.stdout.strip())
 
-            return response.status < 400
+except subprocess.TimeoutExpired:
+    print("URL validation timed out.")
         
-    except:
-        return False
 
 def choose_quality():
     while True:
