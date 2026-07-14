@@ -33,11 +33,12 @@ from PySide6.QtWidgets import (
     QButtonGroup,
 )
 
-APP_VERSION = "1.4.0"
+APP_VERSION = "1.4.1"
 YTDLP_RELEASE_API_URL = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest"
 APP_RELEASE_API_URL = "https://api.github.com/repos/LunaFennec/EzYT_DLP/releases/latest"
 APP_RELEASE_URL = "https://github.com/LunaFennec/EzYT_DLP/releases"
 CONFIG_FILE_NAME = "ezyt-dlp-config.json"
+NO_WINDOW_FLAGS = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
 
 # ---------------------------------------------------------------------------
 # Theme
@@ -362,6 +363,7 @@ def get_ytdlp_version(exe_path: Path):
             stderr=subprocess.PIPE,
             text=True,
             timeout=20,
+            creationflags=NO_WINDOW_FLAGS,
         )
         if proc.returncode != 0:
             return None
@@ -562,6 +564,7 @@ class DownloadThread(QThread):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
+                creationflags=NO_WINDOW_FLAGS,
             )
             if process.stdout is not None:
                 for line in iter(process.stdout.readline, ""):

@@ -3,7 +3,7 @@
 
 #define MyAppName "EZ_YT-DLP"
 #ifndef MyAppVersion
-#define MyAppVersion "1.4.0"
+#define MyAppVersion "1.4.1"
 #endif
 #define MyAppPublisher "LunaFennec"
 #define MyAppURL "https://github.com/LunaFennec/EzYT_DLP"
