@@ -1,32 +1,32 @@
-# A simple, no fuss, no tech-savvy command line youtube video downloader using YT-DLP at it's core.
+# A simple, no fuss, no tech-savvy youtube video downloader using YT-DLP at it's core.
 
--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
 ![icon](icon.ico)
 
 ### Usage:
 
-* Download the latest release. Place the .exe wherever you like, and run it.
+* Install the program with the provided installer.
+
+* Define video/audio settings. The default settings can be set in settings.
 
 * Provide a video URL.
-  > Only one URL at a time is supported.
+  > Only one URL at a time is supported. A queue system is in the works.
 
-* Choose quality by typing number 1-5.
-
-* Choose filetype with number 1-2.
-
-* Downloading will start and be placed in your regular downloads folder.
+* Downloading will start and be placed in the selected download folder. It defaults to your native downloads folder.
 
 * The files will be output in the type and quality you selected.
   > If the quality is not available, the closest quality available will be chosen instead.
 
 Check out all the [supported websites](supportedsites.md) you can download from.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
 
 Started off as a personal project to make downloading youtube videos easier. decided to publish it to github for others to use.
 
-To build the source code, make sure to include ffmpeg, ffprobe and yt-dlp exe's as binaries. The icon is optional.
+Build the app with:
 
-Simple one line to build:
+```powershell
+pyinstaller EZ_YT-DLP.spec
+```
 
-``` pyinstaller --onefile --console --icon "icon.ico" --add-binary "yt-dlp.exe;." --add-binary "ffmpeg.exe;." --add-binary "ffprobe.exe;." download.py ```
+The app expects the bundled binaries `yt-dlp.exe`, `ffmpeg.exe`, and `ffprobe.exe` alongside the script or inside the packaged build.
